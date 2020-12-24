@@ -51,7 +51,7 @@ export class MessagesForm extends Component {
   };
 
   sendMessage = () => {
-    const { messagesRef, getMessagesRef } = this.props;
+    const { getMessagesRef } = this.props;
     const { message, channel } = this.state;
 
     if (message) {
@@ -91,7 +91,7 @@ export class MessagesForm extends Component {
 
   updloadFile = (file, metadata) => {
     const { channel, storageRef } = this.state;
-    const { messagesRef, getMessagesRef } = this.props;
+    const { getMessagesRef } = this.props;
     const pathToUpload = channel.id;
     const ref = getMessagesRef();
     const filePath = `${this.getPath()}/${uuidv4()}.jpg`;
