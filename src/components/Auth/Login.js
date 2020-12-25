@@ -33,7 +33,7 @@ class Login extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.isFormValid(this.state)) {
-      const { email, password, errors } = this.state;
+      const { email, password } = this.state;
       this.setState({ errors: [], loading: true });
       firebase
         .auth()

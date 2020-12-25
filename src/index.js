@@ -31,7 +31,7 @@ const store = createStore(
 
 class Root extends React.Component {
   componentDidMount() {
-    const { history, onSetUser, dataUser, isLoading, onClearUser } = this.props;
+    const { history, onSetUser, onClearUser } = this.props;
 
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
