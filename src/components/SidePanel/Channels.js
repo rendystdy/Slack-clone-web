@@ -17,6 +17,7 @@ import { setCurrentChannel, setPrivateChannel } from "../../actions";
 class Channels extends Component {
   state = {
     activeChannel: "",
+    typingRef: firebase.database().ref("typing"),
     channels: [],
     user: this.props.currentUser,
     channel: null,
@@ -181,7 +182,9 @@ class Channels extends Component {
 
   changeChannel = (channel) => {
     const { setCurrentChannel, setPrivateChannel } = this.props;
+    const { typingRef, user } = this.state;
     this.setActiveChannel(channel);
+    typingRef.child(this.state.channel.id).child(user.uid).remove();
     this.clearNotifications();
     setCurrentChannel(channel);
     setPrivateChannel(false);
