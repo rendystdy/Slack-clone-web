@@ -821,7 +821,7 @@
     resolve "^1.8.1"
     semver "^5.5.1"
 
-"@babel/plugin-transform-runtime@^7.11.0":
+"@babel/plugin-transform-runtime@^7.12.1":
   version "7.12.10"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-runtime/-/plugin-transform-runtime-7.12.10.tgz#af0fded4e846c4b37078e8e5d06deac6cd848562"
   integrity sha512-xOrUfzPxw7+WDm9igMgQCbO3cJKymX7dFdsgRr1eu9n3KjjyU4pptIXbXPseQDquw+W+RuJEJMHKHNsPNNm3CA==
@@ -9396,7 +9396,7 @@ prompts@2.4.0, prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -9581,14 +9581,14 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
-react-avatar-editor@^11.0.13:
-  version "11.0.13"
-  resolved "https://registry.yarnpkg.com/react-avatar-editor/-/react-avatar-editor-11.0.13.tgz#6343fe19fa648d17bfdac9d2c6078401c6754ec5"
-  integrity sha512-uyxmYE6TK63AKUNcQkzHr/EC+yvIH4ZD/mjL/8zA1NmudZYR5bWqWHjjg5118iE9nTV7iX8Ou8Ujq6yjUD+8+w==
+react-avatar-editor@^11.1.0:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/react-avatar-editor/-/react-avatar-editor-11.1.0.tgz#0eaec7970b1fbbd90d42a1955be440ea27f598ea"
+  integrity sha512-Z89qLKS3skld2Ov80EvCCzZKz87eLiEEhwJRYsGG6k2OM0Bo+V0dFrM2i0yAPeGjyagmTkoOSkQgDUfM+zc1vw==
   dependencies:
-    "@babel/plugin-transform-runtime" "^7.11.0"
-    "@babel/runtime" "^7.11.2"
-    prop-types "^15.5.8"
+    "@babel/plugin-transform-runtime" "^7.12.1"
+    "@babel/runtime" "^7.12.5"
+    prop-types "^15.7.2"
 
 react-color@^2.19.3:
   version "2.19.3"
