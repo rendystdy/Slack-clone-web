@@ -2,6 +2,10 @@
 
 ![demo-app](https://github.com/rendystdy/Slack-clone-web/blob/master/demo-app.gif)
 
+### demo app url
+
+(<https://react-slack-clone-509d6.web.app/login>)
+
 ### How to use
 
 - git clone `git@github.com:rendystdy/Slack-clone-web.git` in the terminal
