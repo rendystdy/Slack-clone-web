@@ -15,8 +15,8 @@ class Messages extends Component {
     privateChannel: this.props.isPrivateChannel,
     privateMessagesRef: firebase.database().ref("privateMessages"),
     messagesRef: firebase.database().ref("messages"),
-    messagesLoading: true,
     messages: [],
+    messagesLoading: true,
     channel: this.props.currentChannel,
     isChannelStarred: false,
     user: this.props.currentUser,
@@ -24,27 +24,70 @@ class Messages extends Component {
     progressBar: false,
     numUniqueUsers: "",
     searchTerm: "",
-    searchResults: [],
     searchLoading: false,
+    searchResults: [],
     typingRef: firebase.database().ref("typing"),
     typingUsers: [],
-    connectedRef: firebase.database().ref("info/connected"),
+    connectedRef: firebase.database().ref(".info/connected"),
+    listeners: [],
   };
 
   componentDidMount() {
-    const { channel, user } = this.state;
+    const { channel, user, listeners } = this.state;
 
     if (channel && user) {
+      this.removeListeners(listeners);
       this.addListeners(channel.id);
       this.addUserStarsListener(channel.id, user.uid);
     }
   }
+
+  componentWillUnmount() {
+    const { listeners, connectedRef } = this.state;
+    this.removeListeners(listeners);
+    connectedRef.off();
+  }
+
+  removeListeners = (listeners) => {
+    listeners.forEach((listener) => {
+      listener.ref.child(listener.id).off(listener.event);
+    });
+  };
 
   componentDidUpdate(prevProps, prevState) {
     if (this.messagesEnd) {
       this.scrollToBottom();
     }
   }
+
+  addToListeners = (id, ref, event) => {
+    const index = this.state.listeners.findIndex((listener) => {
+      return (
+        listener.id === id && listener.ref === ref && listener.event === event
+      );
+    });
+
+    if (index === -1) {
+      const newListener = { id, ref, event };
+      this.setState({ listeners: this.state.listeners.concat(newListener) });
+    }
+  };
+
+  addToListeners = (id, ref, event) => {
+    const { listeners } = this.state;
+    const index = listeners.findIndex((listener) => {
+      return (
+        listener.id === id && listener.ref === ref && listener.event === event
+      );
+    });
+
+    if (index === -1) {
+      const newListeners = { id, ref, event };
+      const { listeners } = this.state;
+
+      this.setState({ listeners: listeners.concat(newListeners) });
+    }
+  };
 
   scrollToBottom = () => {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
@@ -70,6 +113,8 @@ class Messages extends Component {
       }
     });
 
+    this.addToListeners(channelId, this.state.typingRef, "child_added");
+
     this.state.typingRef.child(channelId).on("child_removed", (snap) => {
       const index = typingUsers.findIndex((user) => user.id === snap.key);
 
@@ -79,6 +124,8 @@ class Messages extends Component {
         this.setState({ typingUsers });
       }
     });
+
+    this.addToListeners(channelId, this.state.typingRef, "child_removed");
 
     const { connectedRef } = this.state;
 
@@ -111,6 +158,7 @@ class Messages extends Component {
       this.countUniqueUsers(loadedMessage);
       this.countUserPosts(loadedMessage);
     });
+    this.addToListeners(channelId, ref, "child_added");
   };
 
   addUserStarsListener = (channelId, userId) => {

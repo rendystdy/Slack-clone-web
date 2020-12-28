@@ -24,6 +24,14 @@ export class MessagesForm extends Component {
     emojiPicker: false,
   };
 
+  componentWillUnmount() {
+    const { uploadTask } = this.state;
+    if (uploadTask !== null) {
+      uploadTask.cancel();
+      this.setState({ uploadTask: null });
+    }
+  }
+
   openModal = () => this.setState({ modal: !this.state.modal });
 
   closeModal = () => this.setState({ modal: !this.state.modal });
@@ -88,7 +96,7 @@ export class MessagesForm extends Component {
     const { isPrivateChannel } = this.props;
     const { channel } = this.state;
     if (isPrivateChannel) {
-      return `chat/private-${channel.id}`;
+      return `chat/private/${channel.id}`;
     } else {
       return `chat/public`;
     }

@@ -24,6 +24,17 @@ class DirrectMessages extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.removeListeners();
+  }
+
+  removeListeners = () => {
+    const { usersRef, presenceRef, connectedRef } = this.state;
+    usersRef.off();
+    presenceRef.off();
+    connectedRef.off();
+  };
+
   addListeners = (currentUserUid) => {
     let loadedUsers = [];
     const { usersRef, connectedRef, presenceRef } = this.state;
