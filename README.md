@@ -1,4 +1,4 @@
-# BURGER BUILDER WEB APP
+# SLACK CLONE WEB APP
 
 ![demo-app](https://github.com/rendystdy/Slack-clone-web/blob/master/demo-app.gif)
 
