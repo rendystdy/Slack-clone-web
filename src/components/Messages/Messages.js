@@ -8,13 +8,14 @@ import MessageForm from "./MessagesForm";
 import Message from "./Message";
 import firebase from "../../firebase";
 import Typing from "./Typing";
+import Skeleton from "./Skeleton";
 
 class Messages extends Component {
   state = {
     privateChannel: this.props.isPrivateChannel,
     privateMessagesRef: firebase.database().ref("privateMessages"),
     messagesRef: firebase.database().ref("messages"),
-    messagesLoading: false,
+    messagesLoading: true,
     messages: [],
     channel: this.props.currentChannel,
     isChannelStarred: false,
@@ -38,6 +39,16 @@ class Messages extends Component {
       this.addUserStarsListener(channel.id, user.uid);
     }
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.messagesEnd) {
+      this.scrollToBottom();
+    }
+  }
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  };
 
   addListeners = (channelId) => {
     this.addMessageListener(channelId);
@@ -248,6 +259,15 @@ class Messages extends Component {
       </div>
     ));
 
+  displayMessagesSkeleton = (loading) =>
+    loading ? (
+      <React.Fragment>
+        {[...Array(10)].map((_, i) => (
+          <Skeleton key={i} />
+        ))}
+      </React.Fragment>
+    ) : null;
+
   render() {
     const {
       messagesRef,
@@ -262,6 +282,7 @@ class Messages extends Component {
       privateChannel,
       isChannelStarred,
       typingUsers,
+      messagesLoading,
     } = this.state;
     return (
       <React.Fragment>
@@ -279,10 +300,12 @@ class Messages extends Component {
           <Comment.Group
             className={progressBar ? "messages__progress" : "messages"}
           >
+            {this.displayMessagesSkeleton(messagesLoading)}
             {searchTerm
               ? this.displayMessages(searchResults)
               : this.displayMessages(messages)}
             {this.displayTypingUsers(typingUsers)}
+            <div ref={(node) => (this.messagesEnd = node)}></div>
           </Comment.Group>
         </Segment>
 
