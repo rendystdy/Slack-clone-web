@@ -4,7 +4,7 @@
 
 ### demo app url
 
-(<https://react-slack-clone-509d6.web.app/login>)
+(<https://react-slack-clone-509d6.web.app>)
 
 ### How to use
 
